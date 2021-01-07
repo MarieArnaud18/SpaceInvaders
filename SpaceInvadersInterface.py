@@ -7,9 +7,13 @@ hauteur = 700
 X = []
 Y = []
 A_liste = []
-rayon = 15
-DXA = 5
+rayonA = 15
+rayonV = 30
+rayonM = 5
+DXA = 1.5
 DYA = 175/6
+DXV = 8
+DYM = -8
 
 Mafenetre = Tk()
 Mafenetre.title('Space invaders')
@@ -40,16 +44,16 @@ Jeu = Canvas (Mafenetre, width = largeur, height = hauteur, bg = 'white')
 Jeu.pack (side = 'right', padx = 50, pady = 5)
 
 
-X,Y,A_liste = SIF.PositionsInit (largeur, hauteur, X, Y, A_liste, Jeu, Mafenetre)
+X,Y,A_liste = SIF.PositionsInit (largeur, hauteur, X, Y, A_liste, Jeu, Mafenetre, rayonA)
 
 
 for a in A_liste:
-    Alien = Jeu.create_oval (X[a.indice]-rayon, Y[a.indice]-rayon, X[a.indice]+rayon, Y[a.indice]+rayon, outline = 'black', fill = 'pink')
+    alientag = Jeu.create_oval (X[a.indice]-rayonA, Y[a.indice]-rayonA, X[a.indice]+rayonA, Y[a.indice]+rayonA, outline = 'black', fill = 'pink')
+    a.deplacement( DXA, DYA, rayonA, alientag)
 
-
-
-
-
+V = SIF.Vaisseau (Jeu, Mafenetre, rayonV, rayonM)
+Jeu.bind("<Key>", lambda event: V.deplacement(DXV, DYM, event))
+Jeu.focus_set()
 
 
 
