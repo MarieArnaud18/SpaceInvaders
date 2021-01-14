@@ -6,12 +6,9 @@ largeur = 1000
 hauteur = 700
 X = []
 Y = []
-A_liste = []
 rayonA = 15
 rayonV = 30
 rayonM = 5
-DXA = 1.5
-DYA = 175/6
 DXV = 8
 DYM = -8
 
@@ -44,14 +41,12 @@ Jeu = Canvas (Mafenetre, width = largeur, height = hauteur, bg = 'white')
 Jeu.pack (side = 'right', padx = 50, pady = 5)
 
 
-X,Y,A_liste = SIF.PositionsInit (largeur, hauteur, X, Y, A_liste, Jeu, Mafenetre, rayonA)
+X,Y,A_liste = SIF.PositionsInit (largeur, hauteur, X, Y, Jeu, Mafenetre, rayonA)
 
 
 for a in A_liste:
-    alientag = Jeu.create_oval (X[a.indice]-rayonA, Y[a.indice]-rayonA, X[a.indice]+rayonA, Y[a.indice]+rayonA, outline = 'black', fill = 'pink')
-    a.deplacement( DXA, DYA, rayonA, alientag)
-
-V = SIF.Vaisseau (Jeu, Mafenetre, rayonV, rayonM)
+    a.deplacement( rayonA)
+V = SIF.Vaisseau (Jeu, Mafenetre, rayonV, rayonM, A_liste)
 Jeu.bind("<Key>", lambda event: V.deplacement(DXV, DYM, event))
 Jeu.focus_set()
 
